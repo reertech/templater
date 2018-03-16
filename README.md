@@ -1,5 +1,6 @@
 # Welcome to Templater
 
+<img src="http://www.pvhc.net/img88/zxoslhbbhxtzqxydlosb.png" align="left" width="30%" />
 Sometimes you don't have neither time nor resources to install a whole
 ecosystem just to do something trivial. Sometimes all that is needed is
 just a simple tool to get the job done.
