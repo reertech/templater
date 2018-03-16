@@ -43,3 +43,8 @@ Parses a string into a 32 bit integer value.
 Generates an array filled with integer values of the counter, i.e.
 `[0, 1, 2, 3, ..., until - 1]`. Very helpful when you need to do a for
 loop with a counter.
+
+## Binaries
+
+You can download binaries for Windows, Linux and Mac on the Releases
+page.
