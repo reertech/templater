@@ -13,8 +13,8 @@ var templateFileName string
 var outputFileName string
 
 func init() {
-	flag.StringVar(&templateFileName, "template", "template.tmpl", "template file")
-	flag.StringVar(&templateFileName, "t", "template.tmpl", "template file (shorthand)")
+	flag.StringVar(&templateFileName, "template", "", "template file or - for stdin")
+	flag.StringVar(&templateFileName, "t", "", "template file (shorthand)")
 
 	flag.StringVar(&outputFileName, "output", "-", "output file")
 	flag.StringVar(&outputFileName, "o", "-", "output file (shorthand)")
@@ -24,6 +24,7 @@ func parseInt(str string) int {
 	v, err := strconv.ParseInt(str, 10, 32)
 	if err != nil {
 		log.Fatal("Failed to parse the template: ", err)
+		return 0
 	}
 	return int(v)
 }
@@ -41,12 +42,14 @@ func getTemplateContent() string {
 		templateContent, err := ioutil.ReadAll(os.Stdin)
 		if err != nil {
 			log.Fatal("Failed to read the template from stdin: ", err)
+			return ""
 		}
 		return string(templateContent)
 	} else {
 		templateContent, err := ioutil.ReadFile(templateFileName)
 		if err != nil {
 			log.Fatal("Failed to read the template from file: ", err)
+			return ""
 		}
 		return string(templateContent)
 	}
@@ -67,6 +70,11 @@ func getOutputFile() *os.File {
 func main() {
 	flag.Parse()
 
+	if templateFileName == "" {
+		log.Fatal("Please define template name with the -template option. Use -h to see others.")
+		return
+	}
+
 	funcMap := template.FuncMap{
 		"env":      os.Getenv,
 		"parseInt": parseInt,
@@ -84,6 +92,7 @@ func main() {
 	err = t.Execute(outputFile, "")
 	if err != nil {
 		log.Fatal("Failed to render the template: ", err)
+		return
 	}
 
 	outputFile.Close()
