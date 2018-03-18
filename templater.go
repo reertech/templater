@@ -37,6 +37,15 @@ func seq(until int) []int {
 	return arr
 }
 
+func include(fileName string) string {
+	contents, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		log.Fatal("Failed to include the file: ", err)
+		return ""
+	}
+	return string(contents)
+}
+
 func getTemplateContent() string {
 	if templateFileName == "-" {
 		templateContent, err := ioutil.ReadAll(os.Stdin)
@@ -79,6 +88,7 @@ func main() {
 		"env":      os.Getenv,
 		"parseInt": parseInt,
 		"seq":      seq,
+		"include":  include,
 	}
 
 	t, err := template.New("Template").Funcs(funcMap).Parse(getTemplateContent())
