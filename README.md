@@ -44,6 +44,10 @@ Generates an array filled with integer values of the counter, i.e.
 `[0, 1, 2, 3, ..., until - 1]`. Very helpful when you need to do a for
 loop with a counter.
 
+`include _filename_`
+
+Pastes file contents in place.
+
 ## Binaries
 
 You can download binaries for Windows, Linux and Mac on the Releases
